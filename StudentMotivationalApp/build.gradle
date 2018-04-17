@@ -29,7 +29,7 @@ android {
   buildToolsVersion "27.0.3"
 
   defaultConfig {
-    applicationId "com.examples.studentmotivationalapp"
+    applicationId "com.shrinvi.studentmotivationalapp"
     minSdkVersion 21
     targetSdkVersion 26
     versionCode 1
