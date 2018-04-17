@@ -1,4 +1,4 @@
-package com.examples.studentmotivationalapp;
+package com.examples.sma;
 
 public class Defaults
 {
