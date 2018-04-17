@@ -9,9 +9,8 @@ import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
 import java.util.HashMap;
 import java.util.Map;
-import com.examples.studentmotivationalapp.Defaults;
 
-public class MainActivity extends Activity {
+public class SMAMainActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,7 +23,7 @@ public class MainActivity extends Activity {
         Backendless.Data.of( "TestTable" ).save(testObject, new AsyncCallback<Map>() {
           @Override
           public void handleResponse(Map response) {
-            TextView label = new TextView(MainActivity.this);
+            TextView label = new TextView(SMAMainActivity.this);
             label.setText("Object is saved in Backendless. Please check in the console.");
             setContentView(label);
           }
