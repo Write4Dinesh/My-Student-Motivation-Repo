@@ -1,7 +1,8 @@
-package com.shrinvi.sma.core;
+package com.shrinvi.sma.core.ui.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 import android.util.Log;
 
@@ -10,12 +11,14 @@ import com.backendless.BackendlessUser;
 import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
 import com.backendless.property.UserProperty;
+import com.shrinvi.sma.core.Defaults;
+import com.shrinvi.sma.core.SMALogger;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class SMAMainActivity extends Activity {
+public class SMABaseActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,9 +26,9 @@ public class SMAMainActivity extends Activity {
         Backendless.setUrl(Defaults.SERVER_URL);
         Backendless.initApp(getApplicationContext(), Defaults.APPLICATION_ID, Defaults.API_KEY);
         TextView label = new TextView(this);
-       persistAnObjectInTestTable();
+        //persistAnObjectInTestTable();
         setContentView(label);
-        registerUser();
+        //registerUser();
     }
 
     private void registerUser() {
@@ -47,24 +50,13 @@ public class SMAMainActivity extends Activity {
         });
     }
 
-    private void login(String username, String password) {
-        Backendless.UserService.login(username, password, new AsyncCallback<BackendlessUser>() {
-            public void handleResponse(BackendlessUser user) {
-                SMALogger.printLog("Registration successful");
-            }
-
-            public void handleFault(BackendlessFault fault) {
-                SMALogger.printLog("Registration error:" + fault.getMessage());
-            }
-        });
-    }
-    private void persistAnObjectInTestTable(){
+    private void persistAnObjectInTestTable() {
         HashMap testObject = new HashMap<>();
         testObject.put("foo", "bar");
         Backendless.Data.of("TestTable").save(testObject, new AsyncCallback<Map>() {
             @Override
             public void handleResponse(Map response) {
-                TextView label = new TextView(SMAMainActivity.this);
+                TextView label = new TextView(SMABaseActivity.this);
                 label.setText("Object is saved in Backendless. Please check in the console.");
                 setContentView(label);
             }
