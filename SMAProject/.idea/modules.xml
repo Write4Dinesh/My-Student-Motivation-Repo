@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/SMACore/SMACore.iml" filepath="$PROJECT_DIR$/SMACore/SMACore.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SMAGlobal/SMAGlobal.iml" filepath="$PROJECT_DIR$/SMAGlobal/SMAGlobal.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SMAIndia/SMAIndia.iml" filepath="$PROJECT_DIR$/SMAIndia/SMAIndia.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SMAKannada/SMAKannada.iml" filepath="$PROJECT_DIR$/SMAKannada/SMAKannada.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SMAProject.iml" filepath="$PROJECT_DIR$/SMAProject.iml" />
+    </modules>
+  </component>
+</project>
