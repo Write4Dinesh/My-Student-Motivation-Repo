@@ -10,8 +10,6 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/SMACore" />
             <option value="$PROJECT_DIR$/SMAGlobal" />
-            <option value="$PROJECT_DIR$/SMAIndia" />
-            <option value="$PROJECT_DIR$/SMAKannada" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

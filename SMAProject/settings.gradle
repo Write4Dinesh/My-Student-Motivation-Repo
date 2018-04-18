@@ -1,1 +1,1 @@
-include ':SMACore', ':SMAGlobal', ':SMAIndia', ':SMAKannada', ':SMAKannada'
+include ':SMACore', ':SMAGlobal'
