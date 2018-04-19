@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.shrinvi.sma.core"
     android:versionCode="1"
@@ -6,14 +7,49 @@
     <uses-sdk
         android:minSdkVersion="16"
         android:targetSdkVersion="16" />
+
     <uses-permission android:name="android.permission.INTERNET" />
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_CALL_LOG" />
 
     <application>
-        <activity android:name=".SMAMainActivity">
+        <activity
+            android:name=".ui.activity.SMABaseActivity"
+            android:label="BaseActivityTitle"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".ui.activity.SMASplashActivity"
+            android:label="SMA"
+            android:parentActivityName=".ui.activity.SMABaseActivity"
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ui.activity.SMALandingActivity"
+            android:label="LandingActivityTitle"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".ui.activity.SMASignUpActivity"
+            android:label="RegistrationActivityTitle"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".ui.activity.SMASignInActivity"
+            android:label="LoginActivityTitle"
+            android:parentActivityName=".ui.activity.SMABaseActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".ui.activity.SMAHomeActivity"
+            android:label="HomeActivityTitle"
+            android:theme="@style/AppTheme" />
     </application>
+
 </manifest>
