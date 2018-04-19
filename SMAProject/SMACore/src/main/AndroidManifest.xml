@@ -21,15 +21,11 @@
     <application>
         <activity
             android:name=".ui.activity.SMABaseActivity"
-            android:label="sma base activity"
+            android:label="BaseActivityTitle"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".ui.activity.SMAHomeActivity"
-            android:label="sma base activity"
-            android:theme="@style/AppTheme" />
-        <activity
-            android:name=".ui.activity.SMALoginActivity"
-            android:label="@string/title_activity_smalogin"
+            android:name=".ui.activity.SMASplashActivity"
+            android:label="SplashActivityTitle"
             android:parentActivityName=".ui.activity.SMABaseActivity"
             android:theme="@style/AppTheme">
             <intent-filter>
@@ -37,6 +33,23 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ui.activity.SMALandingActivity"
+            android:label="LandingActivityTitle"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".ui.activity.SMASignUpActivity"
+            android:label="RegistrationActivityTitle"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".ui.activity.SMASignInActivity"
+            android:label="LoginActivityTitle"
+            android:parentActivityName=".ui.activity.SMABaseActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".ui.activity.SMAHomeActivity"
+            android:label="HomeActivityTitle"
+            android:theme="@style/AppTheme" />
     </application>
 
 </manifest>

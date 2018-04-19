@@ -3,20 +3,18 @@ package com.shrinvi.sma.core.ui.activity;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
 import android.app.LoaderManager.LoaderCallbacks;
-
 import android.content.CursorLoader;
+import android.content.Intent;
 import android.content.Loader;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
-
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
@@ -29,27 +27,29 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.backendless.Backendless;
 import com.backendless.BackendlessUser;
 import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
 import com.shrinvi.sma.core.R;
-import com.shrinvi.sma.core.SMALogger;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
 /**
  * A login screen that offers login via email/password.
  */
-public class SMALoginActivity extends SMABaseActivity implements LoaderCallbacks<Cursor> {
+public class SMASignUpActivity extends SMABaseActivity implements LoaderCallbacks<Cursor> {
 
     /**
      * Id to identity READ_CONTACTS permission request.
      */
     private static final int REQUEST_READ_CONTACTS = 0;
+    private static final String USER_PROPERTY_NAME_KEY = "name";
+    private static final String USER_PROPERTY_EMAIL_KEY = "email";
+
 
     /**
      * A dummy authentication store containing known user names and passwords.
@@ -59,6 +59,7 @@ public class SMALoginActivity extends SMABaseActivity implements LoaderCallbacks
             "foo@example.com:hello", "bar@example.com:world"
     };
     private AutoCompleteTextView mEmailView;
+    private AutoCompleteTextView mNameView;
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
@@ -66,13 +67,14 @@ public class SMALoginActivity extends SMABaseActivity implements LoaderCallbacks
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_smalogin);
+        setContentView(R.layout.activity_register);
         setupActionBar();
         // Set up the login form.
-        mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
+        mNameView = findViewById(R.id.name);
+        mEmailView = findViewById(R.id.email);
         populateAutoComplete();
 
-        mPasswordView = (EditText) findViewById(R.id.password);
+        mPasswordView = findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
@@ -84,7 +86,7 @@ public class SMALoginActivity extends SMABaseActivity implements LoaderCallbacks
             }
         });
 
-        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
+        Button mEmailSignInButton = findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -113,7 +115,7 @@ public class SMALoginActivity extends SMABaseActivity implements LoaderCallbacks
         }
         if (shouldShowRequestPermissionRationale(READ_CONTACTS)) {
             Snackbar.make(mEmailView, R.string.permission_rationale, Snackbar.LENGTH_INDEFINITE)
-                    .setAction(android.R.string.ok, new View.OnClickListener() {
+                    .setAction(android.R.string.ok, new OnClickListener() {
                         @Override
                         @TargetApi(Build.VERSION_CODES.M)
                         public void onClick(View v) {
@@ -162,6 +164,7 @@ public class SMALoginActivity extends SMABaseActivity implements LoaderCallbacks
         mPasswordView.setError(null);
 
         // Store values at the time of the login attempt.
+        String name = mNameView.getText().toString();
         String email = mEmailView.getText().toString();
         String password = mPasswordView.getText().toString();
 
@@ -194,7 +197,7 @@ public class SMALoginActivity extends SMABaseActivity implements LoaderCallbacks
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
-            login(email, password);
+            registerUser(name, email, password);
         }
     }
 
@@ -281,7 +284,7 @@ public class SMALoginActivity extends SMABaseActivity implements LoaderCallbacks
     private void addEmailsToAutoComplete(List<String> emailAddressCollection) {
         //Create adapter to tell the AutoCompleteTextView what to show in its dropdown list.
         ArrayAdapter<String> adapter =
-                new ArrayAdapter<>(SMALoginActivity.this,
+                new ArrayAdapter<>(SMASignUpActivity.this,
                         android.R.layout.simple_dropdown_item_1line, emailAddressCollection);
 
         mEmailView.setAdapter(adapter);
@@ -299,25 +302,25 @@ public class SMALoginActivity extends SMABaseActivity implements LoaderCallbacks
     }
 
 
-    private void login(String username, String password) {
-        Backendless.UserService.login(username, password, new AsyncCallback<BackendlessUser>() {
-            public void handleResponse(BackendlessUser user) {
-                SMALogger.printLog("Registration successful");
+    public void registerUser(String name, String email, String password) {
+        // do not forget to call Backendless.initApp when your app initializes
+
+        BackendlessUser user = new BackendlessUser();
+        user.setProperty(USER_PROPERTY_EMAIL_KEY, email);
+        user.setPassword(password);
+        user.setProperty(USER_PROPERTY_NAME_KEY, name);
+
+        Backendless.UserService.register(user, new AsyncCallback<BackendlessUser>() {
+            public void handleResponse(BackendlessUser registeredUser) {
                 showProgress(false);
+                Toast.makeText(SMASignUpActivity.this, R.string.registration_success, Toast.LENGTH_LONG).show();
                 goToNextScreen();
             }
 
             public void handleFault(BackendlessFault fault) {
-                SMALogger.printLog("Registration error:" + fault.getMessage());
                 showProgress(false);
-                Snackbar.make(mEmailView, R.string.permission_rationale, Snackbar.LENGTH_INDEFINITE)
-                        .setAction(android.R.string.ok, new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                //Add action to perform here..
-                            }
-                        });
-                Toast.makeText(SMALoginActivity.this, "LoginFailed:" + fault.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(SMASignUpActivity.this, R.string.registration_failed, Toast.LENGTH_LONG).show();
+
             }
         });
     }
