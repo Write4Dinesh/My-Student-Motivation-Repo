@@ -51,13 +51,7 @@ public class SMASignInActivity extends SMABaseActivity implements LoaderCallback
      */
     private static final int REQUEST_READ_CONTACTS = 0;
 
-    /**
-     * A dummy authentication store containing known user names and passwords.
-     * TODO: remove after connecting to a real authentication system.
-     */
-    private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "foo@example.com:hello", "bar@example.com:world"
-    };
+
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
     private View mProgressView;
@@ -69,15 +63,15 @@ public class SMASignInActivity extends SMABaseActivity implements LoaderCallback
         setContentView(R.layout.activity_signin);
         setupActionBar();
         // Set up the login form.
-        mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
+        mEmailView = findViewById(R.id.email);
         populateAutoComplete();
 
-        mPasswordView = (EditText) findViewById(R.id.password);
+        mPasswordView = findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
                 if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
-                    doLogin();
+                    doSignIn();
                     return true;
                 }
                 return false;
@@ -88,12 +82,12 @@ public class SMASignInActivity extends SMABaseActivity implements LoaderCallback
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                doLogin();
+                doSignIn();
             }
         });
 
-        mLoginFormView = findViewById(R.id.login_form);
-        mProgressView = findViewById(R.id.login_progress);
+        mLoginFormView = findViewById(R.id.signIn_form);
+        mProgressView = findViewById(R.id.signIn_progress);
     }
 
     private void populateAutoComplete() {
@@ -150,12 +144,7 @@ public class SMASignInActivity extends SMABaseActivity implements LoaderCallback
         }
     }
 
-    /**
-     * Attempts to sign in or register the account specified by the login form.
-     * If there are form errors (invalid email, missing fields, etc.), the
-     * errors are presented and no actual login attempt is made.
-     */
-    private void doLogin() {
+    private void doSignIn() {
 
         // Reset errors.
         mEmailView.setError(null);

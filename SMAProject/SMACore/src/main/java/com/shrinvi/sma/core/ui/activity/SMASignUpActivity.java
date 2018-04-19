@@ -51,10 +51,6 @@ public class SMASignUpActivity extends SMABaseActivity implements LoaderCallback
     private static final String USER_PROPERTY_EMAIL_KEY = "email";
 
 
-    /**
-     * A dummy authentication store containing known user names and passwords.
-     * TODO: remove after connecting to a real authentication system.
-     */
     private static final String[] DUMMY_CREDENTIALS = new String[]{
             "foo@example.com:hello", "bar@example.com:world"
     };
@@ -79,7 +75,7 @@ public class SMASignUpActivity extends SMABaseActivity implements LoaderCallback
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
                 if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
-                    doLogin();
+                    onSignUpClick();
                     return true;
                 }
                 return false;
@@ -90,12 +86,12 @@ public class SMASignUpActivity extends SMABaseActivity implements LoaderCallback
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                doLogin();
+                onSignUpClick();
             }
         });
 
-        mLoginFormView = findViewById(R.id.login_form);
-        mProgressView = findViewById(R.id.login_progress);
+        mLoginFormView = findViewById(R.id.signIn_form);
+        mProgressView = findViewById(R.id.signIn_progress);
     }
 
     private void populateAutoComplete() {
@@ -157,7 +153,7 @@ public class SMASignUpActivity extends SMABaseActivity implements LoaderCallback
      * If there are form errors (invalid email, missing fields, etc.), the
      * errors are presented and no actual login attempt is made.
      */
-    private void doLogin() {
+    private void onSignUpClick() {
 
         // Reset errors.
         mEmailView.setError(null);
@@ -190,14 +186,10 @@ public class SMASignUpActivity extends SMABaseActivity implements LoaderCallback
         }
 
         if (cancel) {
-            // There was an error; don't attempt login and focus the first
-            // form field with an error.
             focusView.requestFocus();
         } else {
-            // Show a progress spinner, and kick off a background task to
-            // perform the user login attempt.
             showProgress(true);
-            registerUser(name, email, password);
+            signUp(name, email, password);
         }
     }
 
@@ -302,7 +294,7 @@ public class SMASignUpActivity extends SMABaseActivity implements LoaderCallback
     }
 
 
-    public void registerUser(String name, String email, String password) {
+    public void signUp(String name, String email, String password) {
         // do not forget to call Backendless.initApp when your app initializes
 
         BackendlessUser user = new BackendlessUser();

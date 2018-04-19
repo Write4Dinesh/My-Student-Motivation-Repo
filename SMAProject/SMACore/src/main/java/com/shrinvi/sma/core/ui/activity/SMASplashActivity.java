@@ -5,8 +5,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 
-import com.backendless.Backendless;
-import com.shrinvi.sma.core.Defaults;
 import com.shrinvi.sma.core.R;
 import com.shrinvi.sma.core.model.UserSessionInfo;
 
