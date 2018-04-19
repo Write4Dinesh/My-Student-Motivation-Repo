@@ -25,7 +25,7 @@
             android:theme="@style/AppTheme" />
         <activity
             android:name=".ui.activity.SMASplashActivity"
-            android:label="SplashActivityTitle"
+            android:label="SMA"
             android:parentActivityName=".ui.activity.SMABaseActivity"
             android:theme="@style/AppTheme">
             <intent-filter>

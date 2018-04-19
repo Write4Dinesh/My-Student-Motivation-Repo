@@ -67,7 +67,7 @@ public class SMASignUpActivity extends SMABaseActivity implements LoaderCallback
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
+        setContentView(R.layout.activity_signup);
         setupActionBar();
         // Set up the login form.
         mNameView = findViewById(R.id.name);
