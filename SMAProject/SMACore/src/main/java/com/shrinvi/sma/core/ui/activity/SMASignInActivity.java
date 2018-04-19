@@ -37,6 +37,7 @@ import com.backendless.BackendlessUser;
 import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
 import com.shrinvi.sma.core.R;
+import com.shrinvi.sma.core.model.UserSessionInfo;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -83,7 +84,7 @@ public class SMASignInActivity extends SMABaseActivity implements LoaderCallback
             }
         });
 
-        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
+        Button mEmailSignInButton = findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -298,10 +299,14 @@ public class SMASignInActivity extends SMABaseActivity implements LoaderCallback
     }
 
 
-    private void login(String username, String password) {
-        Backendless.UserService.login(username, password, new AsyncCallback<BackendlessUser>() {
+    private void login(String email, String password) {
+        Backendless.UserService.login(email, password, new AsyncCallback<BackendlessUser>() {
             public void handleResponse(BackendlessUser user) {
                 Toast.makeText(SMASignInActivity.this, R.string.login_success, Toast.LENGTH_LONG).show();
+                UserSessionInfo.setUserEmail(user.getEmail());
+                UserSessionInfo.setUserName(user.getProperty(SMASignUpActivity.USER_PROPERTY_NAME_KEY).toString());
+                UserSessionInfo.setLastLoginTime(System.currentTimeMillis());
+                UserSessionInfo.setIsUserLoggedIn(true);
                 showProgress(false);
                 goToNextScreen();
             }

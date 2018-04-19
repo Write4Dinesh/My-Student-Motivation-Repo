@@ -18,38 +18,40 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_CALL_LOG" />
 
-    <application>
+    <application
+        android:name=".SMAApplication"
+        android:theme="@style/AppTheme">
         <activity
             android:name=".ui.activity.SMABaseActivity"
-            android:label="BaseActivityTitle"
-            android:theme="@style/AppTheme" />
+            android:label="base" />
         <activity
             android:name=".ui.activity.SMASplashActivity"
-            android:label="SMA"
-            android:parentActivityName=".ui.activity.SMABaseActivity"
-            android:theme="@style/AppTheme">
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@style/FullscreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".ui.activity.SMALandingActivity"
-            android:label="LandingActivityTitle"
-            android:theme="@style/AppTheme" />
+            android:label="@string/landing_screen_title" />
+        <!--
+        The system reads "parentActivityName" attribute to determine which activity should be started
+        when the user presses the Up button in the action bar
+        -->
         <activity
             android:name=".ui.activity.SMASignUpActivity"
-            android:label="RegistrationActivityTitle"
-            android:theme="@style/AppTheme" />
+            android:label="@string/sign_up_screen_title"
+            android:parentActivityName=".ui.activity.SMALandingActivity" />
         <activity
             android:name=".ui.activity.SMASignInActivity"
-            android:label="LoginActivityTitle"
-            android:parentActivityName=".ui.activity.SMABaseActivity"
-            android:theme="@style/AppTheme" />
+            android:label="@string/sign_in_screen_title"
+            android:parentActivityName=".ui.activity.SMALandingActivity" />
         <activity
             android:name=".ui.activity.SMAHomeActivity"
-            android:label="HomeActivityTitle"
-            android:theme="@style/AppTheme" />
+            android:label="@string/home_screen_title" />
     </application>
 
 </manifest>
