@@ -32,6 +32,7 @@ import com.backendless.BackendlessUser;
 import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
 import com.shrinvi.sma.core.R;
+import com.shrinvi.sma.core.model.UserSessionInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -303,9 +304,13 @@ public class SMASignUpActivity extends SMABaseActivity implements LoaderCallback
         user.setProperty(USER_PROPERTY_NAME_KEY, name);
 
         Backendless.UserService.register(user, new AsyncCallback<BackendlessUser>() {
-            public void handleResponse(BackendlessUser registeredUser) {
+            public void handleResponse(BackendlessUser user) {
                 showProgress(false);
                 Toast.makeText(SMASignUpActivity.this, R.string.registration_success, Toast.LENGTH_LONG).show();
+                UserSessionInfo.setUserEmail(user.getEmail());
+                UserSessionInfo.setUserName(user.getProperty(SMASignUpActivity.USER_PROPERTY_NAME_KEY).toString());
+                UserSessionInfo.setLastLoginTime(System.currentTimeMillis());
+                UserSessionInfo.setIsUserLoggedIn(true);
                 goToNextScreen();
             }
 
