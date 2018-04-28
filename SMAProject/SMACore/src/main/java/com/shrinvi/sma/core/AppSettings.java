@@ -1,6 +1,6 @@
 package com.shrinvi.sma.core;
 
-public class Defaults
+public class AppSettings
 {
   
 public static final String APPLICATION_ID = "A89A3FA9-ED1F-F963-FFA8-C2FCC6A90C00";

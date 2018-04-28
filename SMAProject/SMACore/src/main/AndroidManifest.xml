@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.shrinvi.sma.core"
     android:versionCode="1"
@@ -6,14 +7,51 @@
     <uses-sdk
         android:minSdkVersion="16"
         android:targetSdkVersion="16" />
-    <uses-permission android:name="android.permission.INTERNET" />
 
-    <application>
-        <activity android:name=".SMAMainActivity">
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_CALL_LOG" />
+
+    <application
+        android:name=".SMAApplication"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".ui.activity.SMABaseActivity"
+            android:label="base" />
+        <activity
+            android:name=".ui.activity.SMASplashActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@style/FullscreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ui.activity.SMALandingActivity"
+            android:label="@string/landing_screen_title" />
+        <!--
+        The system reads "parentActivityName" attribute to determine which activity should be started
+        when the user presses the Up button in the action bar
+        -->
+        <activity
+            android:name=".ui.activity.SMASignUpActivity"
+            android:label="@string/sign_up_screen_title"
+            android:parentActivityName=".ui.activity.SMALandingActivity" />
+        <activity
+            android:name=".ui.activity.SMASignInActivity"
+            android:label="@string/sign_in_screen_title"
+            android:parentActivityName=".ui.activity.SMALandingActivity" />
+        <activity
+            android:name=".ui.activity.SMAHomeActivity"
+            android:label="@string/home_screen_title" />
     </application>
+
 </manifest>
