@@ -23,7 +23,9 @@ android {
     }
 
 }
-
+repositories {
+    maven { url 'https://maven.google.com'}
+}
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation group: 'com.backendless', name: 'backendless', version: '4.4.0'
@@ -35,4 +37,10 @@ dependencies {
     implementation 'com.android.support:design:27.1.1'
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     implementation 'com.android.support:support-v4:27.1.1'
+
+        // Required -- JUnit 4 framework
+        testImplementation 'junit:junit:4.12'
+        // Optional -- Mockito framework
+    testImplementation 'org.mockito:mockito-core:1.10.19'
+
 }

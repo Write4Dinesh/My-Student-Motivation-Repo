@@ -8,8 +8,10 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/HelloRXJava" />
             <option value="$PROJECT_DIR$/SMACore" />
             <option value="$PROJECT_DIR$/SMAGlobal" />
+            <option value="$PROJECT_DIR$/databindingexample" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

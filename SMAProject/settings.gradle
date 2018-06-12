@@ -1,1 +1,1 @@
-include ':SMACore', ':SMAGlobal'
+include ':SMACore', ':SMAGlobal', ':HelloRXJava', ':databindingexample'
