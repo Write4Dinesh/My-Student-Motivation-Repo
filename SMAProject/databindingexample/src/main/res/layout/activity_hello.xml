@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+   <!--An Binder class will be generated for each of the layout file-->
+    <data class="DinSample">
+
+        <variable
+            name="din"
+            type="com.shrinvi.example.databinding.KemperatureData" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{din.location,default=some_location}" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{din.celsius,default=49404}" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{din.location,default=button}"
+            android:onClick="@{din.onClickListener"/>
+    </LinearLayout>
+</layout>
